@@ -1,0 +1,89 @@
+import { useNavigate } from "react-router";
+import { IoBagCheckOutline } from "react-icons/io5";
+import { IoIosHome } from "react-icons/io";
+import { useLocation } from "react-router";
+import { IoBagCheck } from "react-icons/io5";
+import { FaRegUserCircle } from "react-icons/fa";
+import { FaUser } from "react-icons/fa";
+import { IoSearchOutline } from "react-icons/io5";
+import { FaSearch } from "react-icons/fa";
+import axios from "axios";
+import { IoHomeOutline } from "react-icons/io5";
+import { useEffect, useState } from "react";
+import { CgProfile } from "react-icons/cg";
+
+export function Navbar() {
+  const navigate = useNavigate();
+  const location = useLocation();
+  const [user, setuser] = useState([]);
+
+  useEffect(() => {
+    const fetchuser = async () => {
+      try {
+        const userr = await axios.get("http://localhost:5000/user/find", {
+          withCredentials: true,
+        });
+        console.log(userr.data);
+        setuser(userr.data);
+      } catch (err) {
+        console.log(err);
+      }
+    };
+    fetchuser();
+  }, []);
+  return (
+    <>
+      <nav
+        style={{
+          position: "fixed",
+          bottom: 0,
+          width: "100%",
+          zIndex: 10,
+          height: "5%",
+          padding: "1px 8px",
+          cursor: "pointer",
+        }}
+        className="navbar bg-white backdrop-blur-md fixed   border-bottom border-body"
+      >
+        {location.pathname === "/user/home" ? (
+          <IoIosHome></IoIosHome>
+        ) : (
+          <IoHomeOutline
+            onClick={() => {
+              navigate("/user/home");
+            }}
+          ></IoHomeOutline>
+        )}
+        {location.pathname === "/foodpartner/search" ? (
+          <FaSearch></FaSearch>
+        ) : (
+          <IoSearchOutline
+            onClick={() => {
+              navigate("/foodpartner/search");
+            }}
+          ></IoSearchOutline>
+        )}
+
+        {location.pathname === "/orderedfood" ? (
+          <IoBagCheck />
+        ) : (
+          <IoBagCheckOutline
+            onClick={() => {
+              navigate("/orderedfood");
+            }}
+          ></IoBagCheckOutline>
+        )}
+        {location.pathname === `/user/profile/${user?._id}` ? (
+          <FaUser />
+        ) : (
+          <FaRegUserCircle
+            onClick={() => {
+              console.log("uer id", user._id);
+              navigate(`/user/profile/${user?._id}`);
+            }}
+          ></FaRegUserCircle>
+        )}
+      </nav>
+    </>
+  );
+}
