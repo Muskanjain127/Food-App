@@ -61,7 +61,7 @@ export function Itemorderpage() {
           ></video>
         </div>
         <div className=" bg-gray-900 mt-2 ml-4 !mb-1 rounded-t-2xl p-2  pt-2 shadow-2xl">
-          <div className="flex gap-16 ">
+          <div className="flex gap-25 ">
             <p className="text-green-500 mb-2  font-semibold">Item Name:</p>
             <p className="mb-2">{fooditem.name}</p>
           </div>

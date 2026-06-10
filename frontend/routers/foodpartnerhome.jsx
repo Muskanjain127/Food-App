@@ -5,6 +5,10 @@ import { useNavigate } from "react-router";
 import { Partnernavbar } from "./partnernavbar";
 export function Partnerhome() {
   const navigate = useNavigate();
+    const [partneritems, setpartneritems] = useState([]);
+  const [loading, setloading] = useState(true);
+  const [partnerdata, setpartnerdata] = useState([]);
+
   const handleondeletepartnerhome = async (foodid, partnerid) => {
     console.log("clicked");
 
@@ -26,9 +30,6 @@ export function Partnerhome() {
       }
     }
   };
-  const [partneritems, setpartneritems] = useState([]);
-  const [loading, setloading] = useState(true);
-  const [partnerdata, setpartnerdata] = useState([]);
 
   useEffect(() => {
     const fetchpartnerid = async () => {
@@ -49,6 +50,8 @@ export function Partnerhome() {
           },
         );
         setpartneritems(fetchitem.data);
+        console.log(fetchitem.data,"dataaaaaaaaaaaaaaaaaaaaaaa");
+
         setloading(false);
       } catch (err) {
         setloading(false);

@@ -9,12 +9,11 @@ async function foodpartnerfooditems(req, res) {
       .populate("foodpartner");
     if (videos.length === 0) {
       console.log("no video");
-      return res.send("no data found");
-    }
+return res.status(404).json({ message: "no data found", data: [] });    }
 
     return res.status(200).json(videos);
   } catch (err) {
-    return res.status(500).json({ message: err.massage });
+    return res.status(500).json({ message: err.message });
   }
 }
 module.exports = foodpartnerfooditems;

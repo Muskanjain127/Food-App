@@ -67,25 +67,23 @@ async function editprofile(req, res) {
     const { name, email, phoneno, username } = req.body;
     const { id } = req.params;
 
+    const updateData = { name, email, phoneno, username };
+
     if (req.file) {
-      const profilepic = req.file.path;
-      const fileuploadresult = await uploadfile(profilepic);
-      updateduser.profilepic = fileuploadresult.secure_url;
+      const fileuploadresult = await uploadfile(req.file.path);
+      updateData.profilepic = fileuploadresult.secure_url;
     }
 
     const updateduser = await foodpartnermodel.findByIdAndUpdate(
       id,
-      {
-        name,
-        email,
-        phoneno,
-        username,
-      },
-      { new: true },
+      updateData, 
+      { new: true }
     );
+
     res.send(updateduser);
   } catch (err) {
-    console.log("faild t udate", err);
+    console.log("failed update", err);
+    res.status(500).send("Error updating profile");
   }
 }
 

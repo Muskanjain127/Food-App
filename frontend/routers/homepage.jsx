@@ -103,12 +103,12 @@ export function Homepage() {
                   zIndex: 100,
                 }}
               >
-                <div
-                  style={{ fontSize: "13px", textShadow: "1px 1px 2px black" }}
+                <div 
+                  style={{fontSize: "13px", textShadow: "1px 1px 2px black" }}
                 >
-                  <Link to={`foodpartner/${video?.foodpartner?._id}`}>
+                  <Link to={`/foodpartner/${video?.foodpartner?._id}`}>
                     {" "}
-                    <div className="flex mb-0 gap-2">
+                    <div className="flex text-white mb-0 gap-2">
                       <img
                         src={
                           video.foodpartner.profilepic
@@ -117,14 +117,14 @@ export function Homepage() {
                         }
                         className="h-8 w-9 mb-0 rounded-full object-fit "
                       />
-                      <div className="mt-2 mb-0">
+                      <div className="mt-2 text-white mb-0">
                         {" "}
                         {video.foodpartner.username}
                       </div>
                     </div>
-                    <div> Name:{video.foodpartner.name}</div>
-                    <div> Price:{video.price}</div>
-                    <div
+                    <div className="text-white"> Name:{video.foodpartner.name}</div>
+                    <div className="text-white"> Price:{video.price}</div>
+                    <div className="text-white"
                       onClick={(e) => {
                         const target = e.currentTarget;
                         if (target.style.whiteSpace === "nowwrap") {
@@ -152,12 +152,13 @@ export function Homepage() {
                 </div>
 
                 <div className="flex gap-1 my-1">
-                  <Link to={`foodpartner/${video?.foodpartner?._id}`}>
+                  <Link to={`/foodpartner/${video?.foodpartner?._id}`}>
+                  
                     <button className="flex-1 border bg-blue-500  text-white hover:bg-red-50  py-1 px-4 !rounded-2xl font-medium transition-all active:scale-95 shadow-md ml-1 mt-1">
                       See Profile
                     </button>
                   </Link>
-                  <Link to={`item/order/${video._id}`}>
+                  <Link to={`/item/order/${video._id}`}>
                     <button className="flex-1 border bg-green-700  text-white hover:bg-red-50  py-1 px-4 !rounded-2xl font-medium transition-all active:scale-95 shadow-md ml-1 mt-1">
                       Order Item
                     </button>
