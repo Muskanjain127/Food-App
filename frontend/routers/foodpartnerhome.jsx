@@ -5,7 +5,7 @@ import { useNavigate } from "react-router";
 import { Partnernavbar } from "./partnernavbar";
 export function Partnerhome() {
   const navigate = useNavigate();
-    const [partneritems, setpartneritems] = useState([]);
+  const [partneritems, setpartneritems] = useState([]);
   const [loading, setloading] = useState(true);
   const [partnerdata, setpartnerdata] = useState([]);
 
@@ -50,7 +50,7 @@ export function Partnerhome() {
           },
         );
         setpartneritems(fetchitem.data);
-        console.log(fetchitem.data,"dataaaaaaaaaaaaaaaaaaaaaaa");
+        console.log(fetchitem.data, "dataaaaaaaaaaaaaaaaaaaaaaa");
 
         setloading(false);
       } catch (err) {
@@ -98,7 +98,7 @@ export function Partnerhome() {
                 Total Items: {partneritems.length}
               </div>
             </header>
-            <div className="grid grid-cols-1 gap-8 md:grid-cols-2 mb-3 lg:grid-cols-3">
+            <div className="grid grid-cols-1 gap-4 md:grid-cols-2 mb-3  lg:grid-cols-3">
               {partneritems.map((items, index) => (
                 <div
                   key={index}
@@ -127,7 +127,7 @@ export function Partnerhome() {
                             state: { items },
                           });
                         }}
-                        className="flex-1 !rounded-4xl bg-slate-700 px-4 py-2.5 text-sm font-bold text-green-400 transition-all hover:bg-red-500/10 hover:text-red-500 border border-transparent hover:border-red-500/50"
+                        className="flex-1 !rounded-4xl bg-slate-700 px-1 py-2.5 text-sm font-bold text-green-400 transition-all hover:bg-red-500/10 hover:text-red-500 border border-transparent hover:border-red-500/50"
                       >
                         Edit
                       </button>
@@ -135,7 +135,7 @@ export function Partnerhome() {
                         onClick={() => {
                           handleondeletepartnerhome(items._id, partnerdata._id);
                         }}
-                        className="flex-1 !rounded-4xl bg-slate-700 px-4 py-2.5 text-sm font-bold text-red-400 transition-all hover:bg-red-500/10 hover:text-red-500 border border-transparent hover:border-red-500/50"
+                        className="flex-1 !rounded-4xl bg-slate-700 px-1 py-2.5 text-sm font-bold text-red-400 transition-all hover:bg-red-500/10 hover:text-red-500 border border-transparent hover:border-red-500/50"
                       >
                         Delete
                       </button>

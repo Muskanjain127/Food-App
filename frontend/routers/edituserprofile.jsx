@@ -19,9 +19,12 @@ export function Edituserprofile() {
     phoneno: olddata?.phoneno || "",
     email: olddata?.email || "",
   });
+    const [isSubmitting, setIsSubmitting] = useState(false);
+  
 
   async function handleonsubmit(e) {
     e.preventDefault();
+    setIsSubmitting(true);
     console.log("clicked");
 
     const formdata = new FormData();
@@ -42,6 +45,7 @@ export function Edituserprofile() {
         withCredentials: true,
       },
     );
+    setIsSubmitting(false);
 
     nameref.current.value = "";
     usernameref.current.value = "";
@@ -144,11 +148,13 @@ export function Edituserprofile() {
 
             <div className="md:col-span-2 flex flex-col gap-3 mt-2">
               <button
+
                 type="submit"
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 !rounded-xl border-radius-0
                shadow-lg shadow-blue-500/30 transition-all active:scale-95"
               >
-                Save Changes
+                              {isSubmitting ? <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" /> : "Save Changes"}
+
               </button>
               <button
                 type="button"

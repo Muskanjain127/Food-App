@@ -1,9 +1,11 @@
 import { useRef } from "react";
 import { useNavigate } from "react-router";
+import { useState } from "react";
 import axios from "axios";
 import { Partnernavbar } from "./partnernavbar";
 
 export function Addfooditem() {
+  const [loading, setLoading] = useState(false);
   const nameref = useRef();
   const videoref = useRef();
   const priceref = useRef();
@@ -11,6 +13,7 @@ export function Addfooditem() {
   const nevigate = useNavigate();
   async function handleonsubmit(e) {
     e.preventDefault();
+    setLoading(true);
     const formdata = new FormData();
 
     const name = nameref.current.value;
@@ -31,6 +34,7 @@ export function Addfooditem() {
       },
     );
     console.log("foodsent");
+    setLoading(false);
     nameref.current.value = "";
     descriptionref.current.value = "";
     priceref.current.value = "";
@@ -44,7 +48,7 @@ export function Addfooditem() {
         className=" bg-gradient-to-br from-red-200 via-green-200 to-blue-200 flex items-center justify-center p-3 mb-6  "
         style={{ height: "100%" }}
       >
-        <div className="bg-red px-4 pt-8 pb-4   rounded-2xl border-2 border-purple-300 shadow-xl w-full max-w-md">
+        <div className="bg-red px-4 pt-8 pb-4   rounded-2xl border-2 border-purple-300 shadow-xl w-full max-w-sm">
           <h2 className="text-3xl font-bold text-gray-800 mb-6  text-center">
             <span className="text-green-500">Add Food Item</span>
           </h2>
@@ -121,7 +125,11 @@ export function Addfooditem() {
               type="submit"
               className="w-full bg-blue-600 !rounded-2xl hover:bg-green-600 text-white font-semibold py-3 mb-1  transition-colors shadow-md active:transform active:scale-95"
             >
-              Add Item
+              {loading ? (
+                <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                "add item"
+              )}
             </button>
             <button
               type="button"

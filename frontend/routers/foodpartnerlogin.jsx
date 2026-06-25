@@ -1,29 +1,38 @@
 import axios from "axios";
-import { useRef } from "react";
+import { useRef, useState } from "react";
 import { useNavigate } from "react-router";
-import { useState } from "react";
+
 export function Foodpartnerlogin() {
   const [isPasswordVisible, setIsPasswordVisible] = useState(false);
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
   const emailref = useRef();
   const passwordref = useRef();
+
   async function handlelogin(e) {
     e.preventDefault();
-    console.log("clicked");
+    setError("");
     const email = emailref.current.value;
     const password = passwordref.current.value;
 
-    const user = await axios.post(
-      "http://localhost:5000/foodpartner/login",
-      {
-        email,
-        password,
-      },
-      { withCredentials: true },
-    );
-    ((emailref.current.value = ""), (passwordref.current.value = ""));
-    navigate("/foodpartner/home");
+    try {
+      const foodpartner = await axios.post(
+        "http://localhost:5000/foodpartner/login",
+        { email, password },
+        { withCredentials: true }
+      );
+            setError(foodpartner?.message || "Login successfully");
+
+      const role = foodpartner.data.foodpartner.role;
+      localStorage.setItem("partnerRole", role);
+
+      emailref.current.value = "";
+      passwordref.current.value = "";
+      navigate("/foodpartner/home");
+    } catch (err) {
+      setError(err.response?.data?.message || "password or Something went wrong");
+    }
   }
 
   return (
@@ -38,6 +47,12 @@ export function Foodpartnerlogin() {
               Please Foodpartner login to your account
             </p>
           </div>
+
+          {error && (
+            <div className="bg-red-500/20 border border-red-500 text-white text-center py-2 rounded-xl mb-4 text-sm">
+              {error}
+            </div>
+          )}
 
           <form
             onSubmit={(e) => {

@@ -2,7 +2,6 @@ const jwt = require("jsonwebtoken");
 const foodpartnermodel = require("../model/foodpartnermodel");
 
 async function cookiefoodpartnerid(req, res, next) {
-  console.log("hehhyyhhyhy");
   try {
     const id = req.cookies.foodpartnerlogintoken;
 

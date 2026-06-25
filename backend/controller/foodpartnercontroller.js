@@ -28,10 +28,11 @@ async function foodpartnerregister(req, res) {
   res.cookie("foodpartnerlogintoken", token);
   res.status(200).json({
     message: "foodpartner registered successfully",
-    foodpartnerinfo: {
+    foodpartner: {
       name,
       email,
       phoneno,
+      role:"foodpartner"
     },
   });
 }
@@ -53,7 +54,11 @@ async function foodpartnerlogin(req, res) {
     process.env.JWTSECRET,
   );
   res.cookie("foodpartnerlogintoken", token);
-  res.send("login successfully");
+      res.status(200).json({
+      message: "User logged in successfully",
+      foodpartner: { id: foodpartner._id, name: foodpartner.name, email: foodpartner.email,role:"foodpartner" },
+    });
+
 }
 function foodpartnerlogout(req, res) {
   res.clearCookie("foodpartnerlogintoken");

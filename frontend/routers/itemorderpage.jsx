@@ -1,99 +1,109 @@
-import { BsChevronLeft } from "react-icons/bs";
 import { useNavigate, useParams } from "react-router";
-import { useState } from "react";
-import { useEffect } from "react";
+import { useState, useEffect } from "react";
 import axios from "axios";
 import { Navbar } from "./footer";
+
 export function Itemorderpage() {
   const navigate = useNavigate();
   const { foodid } = useParams();
+  const [fooditem, setfooditem] = useState({});
+  const [loading, setLoading] = useState(false); 
 
   const orderconfirm = async (foodid) => {
+    setLoading(true); 
     try {
-      const user = await axios.get("http://localhost:5000/user/find", {
-        withCredentials: true,
-      });
-      const partner = await axios.get(
-        "http://localhost:5000/foodpartner/find",
-        { withCredentials: true },
-      );
-      const item = await axios.post(
+      const user = await axios.get("http://localhost:5000/user/find", { withCredentials: true });
+      
+      await axios.post(
         `http://localhost:5000/fooditem/ordered/${foodid}`,
-        { user: user.data._id, partner: partner.data._id },
-        { withCredentials: true },
+        { user: user.data._id },
+        { withCredentials: true }
       );
-      alert("order confirmed!");
+      
+      alert("Order confirmed!");
       navigate("/orderedfood");
     } catch (err) {
-      console.log("failed to load item", err);
+      console.log("failed to order item", err);
+    } finally {
+      setLoading(false); 
     }
   };
 
-  const [fooditem, setfooditem] = useState([]);
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const item = await axios.get(
-          `http://localhost:5000/fooditem/order/${foodid}`,
-          { withCredentials: true },
-        );
+        const item = await axios.get(`http://localhost:5000/fooditem/order/${foodid}`, { withCredentials: true });
         setfooditem(item.data);
       } catch (err) {
         console.log("failed to load item", err);
       }
     };
     fetchdata();
-  }, []);
+  }, [foodid]);
 
   return (
-    <>
-      <div className="min-h-screen bg-gray-900 text-white font-sans flex flex-col">
-        <div className="py-3 flex items-center text-center justify-center border-b border-white">
-          <h1 className="text-lg text-center font-semibold">Order details</h1>
+    <div className="flex justify-center min-h-screen bg-gray-950">
+      <div className="w-full max-w-sm bg-gray-900 text-white min-h-screen flex flex-col border-x border-gray-800">
+        
+        {/* Header */}
+        <div className="py-4 border-b border-gray-700 text-center">
+          <h1 className="text-lg font-semibold">Order details</h1>
         </div>
-        <div className="w-full h-62 p-4 pt-3 pb-1  overflow-hidden bg-gray-900">
+
+        {/* Video */}
+        <div className="w-full aspect-[4/3] p-4">
           <video
             src={fooditem.video}
             loop
             autoPlay
             muted
-            className="w-full  border-2 border-gray-100 rounded-3xl h-full object-cover"
+            className="w-full h-full object-cover rounded-3xl border border-gray-700"
           ></video>
         </div>
-        <div className=" bg-gray-900 mt-2 ml-4 !mb-1 rounded-t-2xl p-2  pt-2 shadow-2xl">
-          <div className="flex gap-25 ">
-            <p className="text-green-500 mb-2  font-semibold">Item Name:</p>
-            <p className="mb-2">{fooditem.name}</p>
+
+        {/* Content */}
+        <div className="p-6 flex flex-col flex-grow">
+          <div className="flex justify-between items-center mb-2">
+            <p className="text-green-500 font-semibold">Item Name:</p>
+            <p>{fooditem.name}</p>
           </div>
 
-          <div className="flex gap-33 ">
-            <p className="text-green-500 text-xl mb-1 font-semibold">Price:</p>
-            <p>₹{fooditem.price}</p>
+          <div className="flex justify-between items-center mb-1">
+            <p className="text-green-500 text-xl font-semibold">Price:</p>
+            <p className="text-xl">₹{fooditem.price}</p>
           </div>
-          <p className="  text-gray-400 leading-relaxed mb-6">
+            <p className="text-green-500 text-xl font-semibold">Desrciption</p>
+
+          <p className="text-gray-400 leading-relaxed mb-6 flex-grow">
             {fooditem.description}
           </p>
-          <div className="flex flex-col gap-3 pr-3 mt auto">
+
+          {/* Buttons */}
+          <div className="flex flex-col gap-3">
             <button
-              onClick={() => {
-                orderconfirm(fooditem._id);
-              }}
-              className="w-full bg-[#76d75d] hover:bg-[#65c24d] text-black font-bold py-3 !rounded-3xl transition-all"
+              onClick={() => orderconfirm(fooditem._id)}
+              disabled={loading}
+              className="w-full bg-[#76d75d] hover:bg-[#65c24d] text-black font-bold py-3 !rounded-2xl transition-all flex justify-center items-center"
             >
-              Confirm Order
+              {loading ? (
+                <div className="w-5 h-5 border-2 border-black border-t-transparent rounded-full animate-spin"></div>
+              ) : (
+                "Confirm Order"
+              )}
             </button>
+            
             <button
-              onClick={() => {
-                navigate(-1);
-              }}
-              className="w-full bg-transparnt border border-red-500 text-red-500 font-bold py-3 !rounded-3xl hover:bg-red-500/10 transition all mb-5"
+              onClick={() => navigate(-1)}
+              className="w-full border border-red-500 text-red-500 font-bold py-3 !rounded-2xl hover:bg-red-500/10 transition-all"
             >
               Cancel
             </button>
           </div>
         </div>
+        
+        <div className="pb-4"></div> 
+        <Navbar />
       </div>
-      <Navbar></Navbar>
-    </>
+    </div>
   );
 }

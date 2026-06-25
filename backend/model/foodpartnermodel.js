@@ -1,5 +1,10 @@
 const mongoose = require("mongoose");
 const foodpartnerschema = new mongoose.Schema({
+
+  role: {
+      type: String,
+      default: "foodpartner",
+    },
   profilepic: {
     type: String,
     required: false,

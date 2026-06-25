@@ -33,27 +33,31 @@ async function createfood(req, res) {
 async function updatefooditem(req, res) {
   try {
     console.log("in editttt");
+
     const { foodid } = req.params;
     const { name, price, description } = req.body;
+    const updateData = {
+      name,
+      price,
+      description,
+      foodpartner: req.foodpartner._id,
+    };
     if (req.file) {
       const video = req.file.path;
       const fileuploadresult = await uploadfile(video);
-      updateitem.video = fileuploadresult.secure_url;
+      updateData.video = fileuploadresult.secure_url;
     }
 
     const updateitem = await fooditemmodel.findByIdAndUpdate(
       foodid,
-      {
-        name,
-        price,
-        description,
-        foodpartner: req.foodpartner._id,
-      },
+      
+updateData,      
       { new: true },
     );
     res.send(updateitem);
   } catch (err) {
-    console.log("faild t udate", err);
+    res.send(err);
+    console.log("faildet udate", err);
   }
 }
 module.exports = { createfood, updatefooditem };

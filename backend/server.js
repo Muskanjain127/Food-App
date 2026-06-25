@@ -1,10 +1,11 @@
 require("dotenv").config();
 const cors = require("cors");
-const app = require("./routers/app");
 const connectdb = require("./model/connectdb");
-
 connectdb();
 
+const app = require("./routers/app");
+
+
 app.listen(5000, () => {
-  console.log("connected");
+  console.log("server runnig successfully");
 });

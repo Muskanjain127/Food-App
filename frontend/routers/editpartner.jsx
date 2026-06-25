@@ -11,13 +11,14 @@ export function Editpartner() {
   const usernameref = useRef();
   const profilepicref = useRef();
   const location = useLocation();
+  const [loading, setLoading] = useState(false);
   console.log(location.state?.foodpartner);
   const olddata = location.state?.foodpartner;
 
   const navigate = useNavigate();
   async function handleonsubmit(e) {
     e.preventDefault();
-
+    setLoading(true);
     console.log("clicked");
     const formdata = new FormData();
     const name = nameref.current.value;
@@ -50,6 +51,7 @@ export function Editpartner() {
     profilepicref.current.value = "";
 
     phonenoref.current.value = "";
+    setLoading(false);
     navigate(`/foodpartner/profile/${olddata._id}`);
   }
   const [partner, setpartner] = useState({
@@ -152,7 +154,6 @@ export function Editpartner() {
                 type="file"
                 name="profilePic"
                 ref={profilepicref}
-                defaultValue={partner.profilepic}
                 className="  file:mr-4 file:py-2 file:px-4 file:rounded-full file:border-0 file:text-sm file:font-semibold file:bg-blue-500 file:text-black hover:file:bg-blue-600 cursor-pointer   w-full mt-1 px-2 py-2 bg-[#0f172a] border border-dashed border-gray-600 rounded-xl text-gray-400"
               />
             </div>
@@ -164,7 +165,11 @@ export function Editpartner() {
                 className="w-full bg-blue-600 hover:bg-blue-700 text-white font-bold py-3 !rounded-xl border-radius-0
                shadow-lg shadow-blue-500/30 transition-all active:scale-95"
               >
-                Save Changes
+                {loading ? (
+                  <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+                ) : (
+                  "Save Changes"
+                )}
               </button>
               <button
                 type="button"

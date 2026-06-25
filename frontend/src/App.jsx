@@ -5,6 +5,7 @@ import { React } from "react";
 import "./App.css";
 import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 import { Userlogin } from "../routers/userlogin";
+import ProtectedRoute from "../routers/protectedroute";
 import { Foodpartnerlogin } from "../routers/foodpartnerlogin";
 import { Useregister } from "../routers/userregister";
 import { Foodpartneregister } from "../routers/foodpartnerregister";
@@ -28,9 +29,9 @@ function App() {
   return (
     <Router>
       <Routes>
-        <Route path="/" element={<Defaulthome></Defaulthome>} />/
-        <Route path="/foodpartner/orders" element={<Orders></Orders>} />/
-        <Route path="/user/home" element={<Homepage></Homepage>} />
+        <Route path="/" element={<Defaulthome></Defaulthome>} />
+        <Route path="/foodpartner/orders" element={<ProtectedRoute role='partner'><Orders></Orders></ProtectedRoute>}/>/
+        <Route path="/user/home" element={<ProtectedRoute role='user'><Homepage></Homepage></ProtectedRoute>} />
         <Route path="/user/register" element={<Useregister></Useregister>} />
         <Route path="/user/login" element={<Userlogin />} />
         <Route
@@ -41,47 +42,47 @@ function App() {
           path="/foodpartner/login"
           element={<Foodpartnerlogin></Foodpartnerlogin>}
         />
-        <Route path="/search" element={<Searching></Searching>} />
-        <Route path="/add/fooditem" element={<Addfooditem></Addfooditem>} />
-        <Route path="/user/logout" element={<Userlogout />} />
+        <Route path="/search" element={<ProtectedRoute role='user'><Searching></Searching></ProtectedRoute>}/>
+        <Route path="/add/fooditem" element={<ProtectedRoute role='partner'><Addfooditem></Addfooditem></ProtectedRoute>} />
+        <Route path="/user/logout" element={<ProtectedRoute role='user'><Userlogout /></ProtectedRoute>} />
         <Route
           path="/foodpartner/logout"
-          element={<Foodpartnerlogout></Foodpartnerlogout>}
+          element={<ProtectedRoute role='partner'><Foodpartnerlogout></Foodpartnerlogout></ProtectedRoute>}
         />
         <Route
           path="/foodpartner/edit/profile/:id"
-          element={<Editpartner></Editpartner>}
+          element={<ProtectedRoute role='partner'><Editpartner/></ProtectedRoute>}
         />
         <Route
           path="/user/edit/profile/:id"
-          element={<Edituserprofile></Edituserprofile>}
+          element={<ProtectedRoute role='user'><Edituserprofile></Edituserprofile></ProtectedRoute>}
         />
         <Route
           path="/user/profile/:id"
-          element={<Userprofilepage></Userprofilepage>}
+          element={<ProtectedRoute role='user'><Userprofilepage></Userprofilepage></ProtectedRoute>}
         />
         <Route
           path="/foodpartner/profile/:id"
-          element={<Partnerselfprofile />}
+          element={<ProtectedRoute role='partner'><Partnerselfprofile /></ProtectedRoute>}
         />
         <Route
           path="/orderedfood"
-          element={<Orderedfoodlist></Orderedfoodlist>}
+          element={<ProtectedRoute role='user'><Orderedfoodlist></Orderedfoodlist></ProtectedRoute>}
         />
         <Route
           path="/foodpartner/:id"
-          element={<Partnerprofile></Partnerprofile>}
+          element={<ProtectedRoute role='user'><Partnerprofile></Partnerprofile></ProtectedRoute>}
         />
         <Route
           path="/item/order/:foodid"
-          element={<Itemorderpage></Itemorderpage>}
+          element={<ProtectedRoute role='user'><Itemorderpage></Itemorderpage></ProtectedRoute>}
         />
-        <Route path="/foodpartner/search" element={<Searching></Searching>} />
+        <Route path="/foodpartner/search" element={<ProtectedRoute role='user'><Searching></Searching></ProtectedRoute>} />
         <Route
           path="/fooditem/edit/:foodid"
-          element={<Updateitem></Updateitem>}
+          element={<ProtectedRoute role='partner'><Updateitem></Updateitem></ProtectedRoute>}
         />
-        <Route path="/foodpartner/home" element={<Partnerhome></Partnerhome>} />
+        <Route path="/foodpartner/home" element={<ProtectedRoute role='partner'><Partnerhome></Partnerhome></ProtectedRoute>}/>
       </Routes>
     </Router>
   );

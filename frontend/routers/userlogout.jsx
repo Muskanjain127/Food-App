@@ -10,10 +10,15 @@ export function Userlogout() {
         await axios.get("http://localhost:5000/user/logout", {
           withCredentials: true,
         });
-        console.log("logout successfull");
+            console.log("after removal:", localStorage.getItem("userRole")); 
+
         setTimeout(() => {
           navigate("/user/login");
         }, 2000);
+
+
+        console.log("logout successfull");
+
       } catch (err) {
         console.log(err);
       }

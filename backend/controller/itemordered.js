@@ -5,11 +5,11 @@ const orderedfood = require("../model/orderoffoodlist");
 const orderoffoodmodel = require("../model/orderoffoodlist");
 async function orderoffood(req, res) {
   const { foodid } = req.params;
-  const { user, partner } = req.body;
+  const { user} = req.body;
 
   const item = await fooditemmodel.findById(foodid);
   const realuser = await usermodel.findById(user);
-  const foodpartner = await foodpartnermodel.findById(partner);
+  const foodpartner = await foodpartnermodel.findById(item.foodpartner);
   const allorderoffood = await orderoffoodmodel.create({
     foodid: item._id,
     userid: realuser._id,

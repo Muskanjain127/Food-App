@@ -4,131 +4,120 @@ const bcrypt = require("bcrypt");
 const uploadfile = require("../services/cloudinary");
 
 async function userregister(req, res) {
-  const { name, email, password, phoneno, username } = req.body;
-  const profilepic = req.file ? req.file.path : null;
-  const isuseralreadyexists = await usermodel.findOne({ email });
-  if (isuseralreadyexists) {
-    res.send("user aready exists");
-  }
-  console.log("pass", password);
-  const hashedpass = await bcrypt.hash(password, 10);
   try {
-    const fileuploadresult = await uploadfile(profilepic);
+    const { name, email, password, phoneno, username } = req.body;
 
-    let user = await usermodel.create({
+    const isUserAlreadyExists = await usermodel.findOne({ email });
+    if (isUserAlreadyExists) {
+      return res.status(409).json({ message: "User with this email already exists" });
+    }
+
+    const hashedpass = await bcrypt.hash(password, 10);
+    let profilePicUrl = "";
+
+    if (req.file) {
+      const fileuploadresult = await uploadfile(req.file.path);
+      profilePicUrl = fileuploadresult.secure_url;
+    }
+
+    const user = await usermodel.create({
       name,
       email,
       password: hashedpass,
       phoneno,
       username,
-      profilepic: fileuploadresult ? fileuploadresult.secure_url : "",
+      profilepic: profilePicUrl,
     });
 
-    const token = jwt.sign(
-      {
-        id: user._id,
-      },
-      process.env.JWTSECRET,
-    );
+    const token = jwt.sign({ id: user._id }, process.env.JWTSECRET);
     res.cookie("userlogintoken", token, {
       httpOnly: true,
       secure: false,
       sameSite: "lax",
       path: "/",
     });
-    res.send({
-      messagr: "register successfully",
-      userinfo: {
-        id: user._id,
-        name: user.name,
-        email: user.email,
-        phoneno: user.phoneno,
-      },
+
+    return res.status(201).json({
+      message: "Registered successfully",
+      userinfo: { id: user._id, name: user.name, email: user.email,role:'user' },
+    });
+
+  } catch (err) {
+    if (err.code === 11000) {
+      const field = Object.keys(err.keyValue)[0]; 
+      return res.status(409).json({ message: `${field} already exists` });
+    }
+
+    console.error("Backend Error:", err);
+    return res.status(500).json({ message: "Something went wrong" });
+  }
+}
+async function userlogin(req, res) {
+  try {
+    const { email, password } = req.body;
+    const user = await usermodel.findOne({ email });
+
+    if (!user) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    const corrpassword = await bcrypt.compare(password, user.password);
+    if (!corrpassword) {
+      return res.status(401).json({ message: "Invalid email or password" });
+    }
+
+    const token = jwt.sign({ id: user._id }, process.env.JWTSECRET);
+    res.cookie("userlogintoken", token, { httpOnly: true, sameSite: "lax" });
+
+    res.status(200).json({
+      message: "User logged in successfully",
+      user: { id: user._id, name: user.name, email: user.email,role:'user' },
     });
   } catch (err) {
-    console.log("fsilrf", err);
+    console.error("Error in user login:", err);
+    res.status(500).json({ message: "Internal server error during login" });
   }
 }
 
-async function userlogin(req, res) {
-  console.log("in backend userlogin");
-  const { email, password } = req.body;
-  const user = await usermodel.findOne({ email });
-  console.log("user", user);
-
-  if (!user) {
-    return res.send("invalid username or password");
-  }
-  const corrpassword = await bcrypt.compare(password, user.password);
-  console.log("user coorpassword", password);
-
-  if (!corrpassword) {
-    return res.status(400).json({
-      message: "inalid username or password",
-    });
-  }
-  const token = jwt.sign(
-    {
-      id: user._id,
-    },
-    process.env.JWTSECRET,
-  );
-  res.cookie("userlogintoken", token);
-
-  res.status(200).json({
-    message: "user loged in successfuly",
-    user: {
-      id: user._id,
-      name: user.name,
-      email: user.email,
-    },
-  });
-}
 function userlogout(req, res) {
   res.clearCookie("userlogintoken");
   res.clearCookie("registertoken");
-
-  res.status(200).json({
-    message: "logged out successfully",
-  });
+  res.status(200).json({ message: "Logged out successfully" });
 }
 
 async function profilepage(req, res) {
-  const { id } = req.params;
-  const user = await usermodel.findById(id);
-  res.send({ message: "in profile pge controller", user: user });
+  try {
+    const { id } = req.params;
+    const user = await usermodel.findById(id).select("-password");  
+    if (!user) return res.status(404).json({ message: "User not found" });
+    res.status(200).json({ message: "Profile fetched successfully", user });
+  } catch (err) {
+    console.error("Error fetching profile:", err);
+    res.status(500).json({ message: "Error fetching profile" });
+  }
 }
+
 async function editprofile(req, res) {
   try {
     const { name, email, phoneno, username } = req.body;
     const { id } = req.params;
+    
+    let updateData = { name, email, phoneno, username };
+
     if (req.file) {
-      const profilepic = req.file.path;
-
-      const fileuploadresult = await uploadfile(profilepic);
-      updateuser.profilepic = fileuploadresult.secure_url;
+      const fileuploadresult = await uploadfile(req.file.path);
+      updateData.profilepic = fileuploadresult.secure_url;
     }
-    let updateduser = await usermodel.findByIdAndUpdate(
-      id,
-      {
-        name,
-        email,
 
-        phoneno,
-        username,
-      },
-      { new: true },
-    );
-    res.send(updateduser);
+    const updatedUser = await usermodel.findByIdAndUpdate(id, updateData, { new: true });
+    
+    if (!updatedUser) return res.status(404).json({ message: "User not found" });
+    
+    res.status(200).json({ message: "Profile updated successfully", user: updatedUser });
   } catch (err) {
-    console.log("faild t udate", err);
+    console.error("Error updating profile:", err);
+    res.status(500).json({ message: "Failed to update profile" });
   }
 }
 
-module.exports = {
-  userregister,
-  userlogin,
-  userlogout,
-  profilepage,
-  editprofile,
-};
+module.exports = { userregister, userlogin, userlogout, profilepage, editprofile };

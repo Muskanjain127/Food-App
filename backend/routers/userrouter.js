@@ -21,8 +21,8 @@ userrouter.post(
 
 userrouter.post("/register", upload.single("profilepic"), user.userregister);
 userrouter.post("/login", user.userlogin);
-userrouter.get("/logout", justuserverify, user.userlogout);
-userrouter.get("/profile/:id", justuserverify, user.profilepage);
+userrouter.get("/logout", usermiddleware, user.userlogout);
+userrouter.get("/profile/:id", usermiddleware, user.profilepage);
 userrouter.post("/searching", usermiddleware, searching);
 
 module.exports = userrouter;

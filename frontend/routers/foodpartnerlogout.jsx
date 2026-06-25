@@ -8,6 +8,8 @@ export function Foodpartnerlogout() {
       try {
         await axios.get("http://localhost:5000/foodpartner/logout");
         console.log("logout successfull");
+        localStorage.removeItem("partnerRole");
+
         setTimeout(() => {
           navigate("/foodpartner/login");
         }, 2000);

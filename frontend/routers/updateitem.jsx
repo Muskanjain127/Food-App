@@ -8,6 +8,7 @@ import { Partnernavbar } from "./partnernavbar";
 
 export function Updateitem() {
   const { foodid } = useParams();
+  const [loading,setLoading]=useState(false);
   const nameref = useRef();
   const videoref = useRef();
   const priceref = useRef();
@@ -17,6 +18,7 @@ export function Updateitem() {
   const olddata = location.state?.items;
   async function handleonupdate(e) {
     e.preventDefault();
+    setLoading(true);
     const formdata = new FormData();
 
     const name = nameref.current.value;
@@ -44,6 +46,7 @@ export function Updateitem() {
     descriptionref.current.value = "";
     priceref.current.value = "";
     videoref.current.value = "";
+    setLoading(false)
     nevigate("/foodpartner/home");
   }
   const [fooddata, setfooddata] = useState({
@@ -141,7 +144,13 @@ export function Updateitem() {
               type="submit"
               className="w-full bg-blue-600 !rounded-2xl hover:bg-green-600 text-white font-semibold py-3 mb-1  transition-colors shadow-md active:transform active:scale-95"
             >
-              Save Changes
+                            {loading ? (
+                <span className="inline-block w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin" />
+              ) : (
+                "Save Changes"
+              )}
+
+            s
             </button>
             <button
               type="button"

@@ -37,13 +37,12 @@ export function Navbar() {
         style={{
           position: "fixed",
           bottom: 0,
-          width: "100%",
-          zIndex: 10,
+          zIndex: 100,
           height: "5%",
           padding: "1px 8px",
           cursor: "pointer",
         }}
-        className="navbar bg-white backdrop-blur-md fixed   border-bottom border-body"
+        className="navbar text-black bg-white backdrop-blur-md fixed w-full max-w-sm   border-bottom border-body"
       >
         {location.pathname === "/user/home" ? (
           <IoIosHome></IoIosHome>
