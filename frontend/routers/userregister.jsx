@@ -30,7 +30,7 @@ export function Useregister() {
     formdata.append("profilepic", profilepicref.current.files[0] || "");
 
     try {
-      const response = await axios.post("http://localhost:5000/user/register", formdata, {
+      const response = await axios.post("https://food-webapp-6n6a.onrender.com/user/register"||"http://localhost:5000/user/register", formdata, {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
       });      console.log(response.data.userinfo);
