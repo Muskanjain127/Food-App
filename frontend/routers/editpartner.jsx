@@ -36,7 +36,7 @@ export function Editpartner() {
     }
     formdata.append("username", username);
     const id = olddata._id;
-    const foodpartner = await axios.post(
+    const foodpartner = await axios.post(`https://food-webapp-6n6a.onrender.com/foodpartner/edit/profile/${id}`||
       `http://localhost:5000/foodpartner/edit/profile/${id}`,
 
       formdata,
