@@ -22,10 +22,9 @@ export function Edituserprofile() {
     const [isSubmitting, setIsSubmitting] = useState(false);
   
 
-  async function handleonsubmit(e) {
+async function handleonsubmit(e) {
     e.preventDefault();
     setIsSubmitting(true);
-    console.log("clicked");
 
     const formdata = new FormData();
     formdata.append("name", nameref.current.value);
@@ -36,24 +35,33 @@ export function Edituserprofile() {
     if (profilepicref.current.files[0]) {
       formdata.append("profilepic", profilepicref.current.files[0]);
     }
+
     const id = olddata._id;
-await axios.post(`https://food-webapp-6n6a.onrender.com/user/edit/profile/${id}`, 
+
+    try {
+      await axios.post(`https://food-webapp-6n6a.onrender.com/user/edit/profile/${id}`, 
         formdata, 
         {
           headers: { "Content-Type": "multipart/form-data" },
           withCredentials: true,
-        }
-      );    setIsSubmitting(false);
+        } 
+      ); 
 
-    nameref.current.value = "";
-    usernameref.current.value = "";
-    emailref.current.value = "";
-    phonenoref.current.value = "";
-    profilepicref.current.value = "";
+      setIsSubmitting(false);
 
-    navigate(`/user/profile/${id}`);
+      nameref.current.value = "";
+      usernameref.current.value = "";
+      emailref.current.value = "";
+      phonenoref.current.value = "";
+      profilepicref.current.value = "";
+
+      navigate(`/user/profile/${id}`);
+    } catch (error) {
+      console.error("Error:", error);
+      setIsSubmitting(false);
+      alert("Update failed!");
+    }
   }
-
   return (
     <>
       <div className="min-h-screen flex items-center justify-center bg-[#0f172a] p-3 font-sans">
