@@ -11,7 +11,7 @@ export function Orders() {
     );
     if (userconfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/fooditem/cancelorder/${id}`, {
+        await axios.delete(`https://food-webapp-6n6a.onrender.com/fooditem/cancelorder/${id}`||`http://localhost:5000/fooditem/cancelorder/${id}`, {
           withCredentials: true,
         });
         setorders((orders) => orders.filter((item) => item._id !== id));
@@ -26,14 +26,14 @@ export function Orders() {
   useEffect(() => {
     const fetchorders = async () => {
       try {
-        const foodpartner = await axios.get(
+        const foodpartner = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartnert/find`||
           "http://localhost:5000/foodpartner/find",
           {
             withCredentials: true,
           },
         );
         const id = foodpartner.data._id;
-        const res = await axios.get(
+        const res = await axios.get(`https://food-webapp-6n6a.onrender.com/fooditem/foodpartner/orders/${id}`||
           `http://localhost:5000/fooditem/foodpartner/orders/${id}`,
           {
             withCredentials: true,
