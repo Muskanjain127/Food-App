@@ -7,7 +7,7 @@ async function getpartnerorder(req, res) {
   const foodpartner = await orderoffoodmodel.findById(partnerid);
   const orders = await orderoffoodmodel
     .find({ foodpartnerid: partnerid })
-    .populate(foodid, userid);
+    .populate("foodid userid");
   res.send({ message: "in getpartnerorer controllr" }, { foodpartner, orders });
 }
 module.exports = getpartnerorder;
