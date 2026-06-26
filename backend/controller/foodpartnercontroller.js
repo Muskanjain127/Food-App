@@ -57,8 +57,12 @@ async function foodpartnerlogin(req, res) {
     },
     process.env.JWTSECRET,
   );
-  res.cookie("foodpartnerlogintoken", token);
-      res.status(200).json({
+res.cookie("foodpartnerlogintoken", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+});        res.status(200).json({
       message: "User logged in successfully",
       foodpartner: { id: foodpartner._id, name: foodpartner.name, email: foodpartner.email,role:"foodpartner" },
     });
