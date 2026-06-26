@@ -33,7 +33,7 @@ async function userregister(req, res) {
     res.cookie("userlogintoken", token, {
       httpOnly: true,
       secure: false,
-      sameSite: "lax",
+      sameSite: "none",
       path: "/",
     });
 
@@ -67,7 +67,7 @@ async function userlogin(req, res) {
     }
 
     const token = jwt.sign({ id: user._id }, process.env.JWTSECRET);
-    res.cookie("userlogintoken", token, { httpOnly: true, sameSite: "lax" });
+    res.cookie("userlogintoken", token, { httpOnly: true, sameSite: "none" });
 
     res.status(200).json({
       message: "User logged in successfully",
