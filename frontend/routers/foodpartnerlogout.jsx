@@ -6,8 +6,8 @@ export function Foodpartnerlogout() {
   useEffect(() => {
     const performlogout = async () => {
       try { 
-        await axios.get`https://food-webapp-6n6a.onrender.com/foodpartner/logout`||
-          ("http://localhost:5000/foodpartner/logout");
+        await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner/logout`||
+          "http://localhost:5000/foodpartner/logout");
         console.log("logout successfull");
         localStorage.removeItem("partnerRole");
 
