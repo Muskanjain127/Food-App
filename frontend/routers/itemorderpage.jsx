@@ -14,7 +14,7 @@ export function Itemorderpage() {
     try {
       const user = await axios.get(`https://food-webapp-6n6a.onrender.com/user/find`||"http://localhost:5000/user/find", { withCredentials: true });
       
-      await axios.post(`https://food-webapp-6n6a.onrender.com/fooditem/ordered//${foodid}`||
+      await axios.post(`https://food-webapp-6n6a.onrender.com/fooditem/ordered/${foodid}`||
         `http://localhost:5000/fooditem/ordered/${foodid}`,
         { user: user.data._id },
         { withCredentials: true }
