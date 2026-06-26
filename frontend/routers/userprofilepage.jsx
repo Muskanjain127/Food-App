@@ -23,7 +23,7 @@ export function Userprofilepage() {
     if (confirm) {
       const performlogout = async () => {
         try {
-          await axios.get("http://localhost:5000/user/logout", {
+          await axios.get(`https://food-webapp-6n6a.onrender.com/user/logout`||"http://localhost:5000/user/logout", {
             withCredentials: true,
           });
           localStorage.removeItem("userRole");
@@ -46,7 +46,7 @@ export function Userprofilepage() {
 
   useEffect(() => {
     const fetchuser = async () => {
-      const userr = await axios.get(
+      const userr = await axios.get(`https://food-webapp-6n6a.onrender.com/user/profile/${id}`||
         `http://localhost:5000/user/profile/${id}`,
 
         {
