@@ -18,7 +18,7 @@ export function Homepage() {
           { withCredentials: true }
         );
         console.log("daata", res.data);
-        setvideos(res.data);
+        setvideos(res.data.items);
         setloading(false);
       } catch (err) {
         setloading(false);
