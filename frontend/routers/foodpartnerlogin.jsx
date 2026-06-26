@@ -17,7 +17,7 @@ export function Foodpartnerlogin() {
     const password = passwordref.current.value;
 
     try {
-      const foodpartner = await axios.post(
+      const foodpartner = await axios.post(`https://food-webapp-6n6a.onrender.com/foodpartner/login`||
         "http://localhost:5000/foodpartner/login",
         { email, password },
         { withCredentials: true }
