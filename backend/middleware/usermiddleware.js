@@ -22,5 +22,5 @@ async function usermiddleware(req, res, next) {
     console.log("not verified user ", err);
   }
 }
-}
+
 module.exports = usermiddleware;
