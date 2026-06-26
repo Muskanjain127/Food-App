@@ -12,14 +12,12 @@ export function Editpartner() {
   const profilepicref = useRef();
   const location = useLocation();
   const [loading, setLoading] = useState(false);
-  console.log(location.state?.foodpartner);
   const olddata = location.state?.foodpartner;
 
   const navigate = useNavigate();
   async function handleonsubmit(e) {
     e.preventDefault();
     setLoading(true);
-    console.log("clicked");
     const formdata = new FormData();
     const name = nameref.current.value;
     const username = usernameref.current.value;
