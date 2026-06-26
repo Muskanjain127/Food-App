@@ -44,7 +44,7 @@ export function Partnernavbar() {
   useEffect(() => {
     const fetchpartnerid = async () => {
       try {
-        const partnerid = await axios.get(`http://localhost:5000/foodpartner/find`, {
+        const partnerid = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner/find`||`http://localhost:5000/foodpartner/find`, {
           withCredentials: true,
         });
         setpartner(partnerid.data);
@@ -56,10 +56,9 @@ export function Partnernavbar() {
   }, []);
 
   return (
-    // mx-auto से यह सेंटर में आ जाएगा
+    
     <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-sm h-6 bg-white backdrop-blur-md border-t border-zinc-200 flex items-center justify-between px-6 z-[100] shadow-[0_-5px_20px_rgba(0,0,0,0.1)] ">
       
-      {/* Icons size increased to text-2xl */}
       <div className="text-xl cursor-pointer">
         {location.pathname === "/foodpartner/home" ? (
           <IoIosHome className="text-indigo-600" />
