@@ -20,7 +20,7 @@ export function Navbar() {
   useEffect(() => {
     const fetchuser = async () => {
       try {
-        const userr = await axios.get("http://localhost:5000/user/find", {
+        const userr = await axios.get(`https://food-webapp-6n6a.onrender.com/user/find`||"http://localhost:5000/user/find", {
           withCredentials: true,
         });
         console.log(userr.data);
