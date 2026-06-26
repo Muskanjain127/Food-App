@@ -30,13 +30,12 @@ async function userregister(req, res) {
     });
 
     const token = jwt.sign({ id: user._id }, process.env.JWTSECRET);
-    res.cookie("userlogintoken", token, {
-      httpOnly: true,
-      secure: false,
-      sameSite: "none",
-      path: "/",
-    });
-
+res.cookie("userlogintoken", token, {
+  httpOnly: true,
+  secure: true,       
+  sameSite: "none",   
+  path: "/",
+});
     return res.status(201).json({
       message: "Registered successfully",
       userinfo: { id: user._id, name: user.name, email: user.email,role:'user' },
