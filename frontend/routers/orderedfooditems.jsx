@@ -10,7 +10,7 @@ export function Orderedfoodlist() {
     const userconfirmed = window.confirm("Are you confirm, to cancel this order?");
     if (userconfirmed) {
       try {
-        await axios.delete(`http://localhost:5000/fooditem/cancelorder/${id}`, {
+        await axios.delete(`https://food-webapp-6n6a.onrender.com/fooditem/cancelorder/${id}`||`http://localhost:5000/fooditem/cancelorder/${id}`, {
           withCredentials: true,
         });
         setorders((orders) => orders.filter((item) => item._id !== id));
