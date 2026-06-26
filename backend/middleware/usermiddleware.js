@@ -4,11 +4,7 @@ const jwt = require("jsonwebtoken");
 
 async function usermiddleware(req, res, next) {
   console.log("heyyyyyyyyy");
-  try{
   const logintoken = req.cookies.userlogintoken;
-    console.log(logintoken);
-  } catch(err)
-  {console.log(err);
   if (!logintoken) {
    return res.send("pleaase login first");
   }
