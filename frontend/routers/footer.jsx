@@ -23,7 +23,6 @@ export function Navbar() {
         const userr = await axios.get(`https://food-webapp-6n6a.onrender.com/user/find`||"http://localhost:5000/user/find", {
           withCredentials: true,
         });
-        console.log(userr.data);
         setuser(userr.data);
       } catch (err) {
         console.log(err);
@@ -77,7 +76,6 @@ export function Navbar() {
         ) : (
           <FaRegUserCircle
             onClick={() => {
-              console.log("uer id", user._id);
               navigate(`/user/profile/${user?._id}`);
             }}
           ></FaRegUserCircle>

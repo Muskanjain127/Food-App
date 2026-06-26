@@ -10,7 +10,6 @@ export function Partnerhome() {
   const [partnerdata, setpartnerdata] = useState([]);
 
   const handleondeletepartnerhome = async (foodid, partnerid) => {
-    console.log("clicked");
 
     const confirm = window.confirm(
       "are you sure you want to delete this food item?",
@@ -42,7 +41,6 @@ export function Partnerhome() {
         );
 
         setpartnerdata(partnerid.data);
-        console.log("before fetchitem");
         const fetchitem = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner/${partnerid.data._id}`||
           `http://localhost:5000/foodpartner/${partnerid.data._id}`,
           {
@@ -50,7 +48,6 @@ export function Partnerhome() {
           },
         );
         setpartneritems(fetchitem.data);
-        console.log(fetchitem.data, "dataaaaaaaaaaaaaaaaaaaaaaa");
 
         setloading(false);
       } catch (err) {

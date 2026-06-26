@@ -41,7 +41,6 @@ export function Updateitem() {
         withCredentials: true,
       },
     );
-    console.log("foodupdaTE");
     nameref.current.value = "";
     descriptionref.current.value = "";
     priceref.current.value = "";

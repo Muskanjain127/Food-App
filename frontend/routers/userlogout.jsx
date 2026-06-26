@@ -10,7 +10,6 @@ export function Userlogout() {
         await axios.get(`https://food-webapp-6n6a.onrender.com/user/logout`||"http://localhost:5000/user/logout", {
           withCredentials: true,
         });
-            console.log("after removal:", localStorage.getItem("userRole")); 
 
         setTimeout(() => {
           navigate("/user/login");

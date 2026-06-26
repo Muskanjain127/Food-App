@@ -54,7 +54,6 @@ export function Userprofilepage() {
         },
       );
 
-      console.log("user", userr.data);
 
       setuser(userr.data.user);
     };

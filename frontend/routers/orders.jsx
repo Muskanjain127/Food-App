@@ -16,7 +16,6 @@ export function Orders() {
         });
         setorders((orders) => orders.filter((item) => item._id !== id));
         alert("order deleted successfuly");
-        console.log("success");
       } catch (err) {
         console.log("error during deletion", err);
       }
@@ -39,7 +38,6 @@ export function Orders() {
             withCredentials: true,
           },
         );
-        console.log("orders", res.data);
         setorders(res.data);
         setloading(!loading);
       } catch (err) {

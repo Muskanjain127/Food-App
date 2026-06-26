@@ -17,7 +17,6 @@ export function Homepage() {
           "http://localhost:5000/fooditem/user/showfooditem",
           { withCredentials: true }
         );
-        console.log("daata", res.data);
         setvideos(res.data.items);
         setloading(false);
       } catch (err) {
