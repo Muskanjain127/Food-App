@@ -39,7 +39,7 @@ export function Navbar() {
           bottom: 2,
           zIndex: 100,
           height: "5%",
-          padding: "1px 8px",
+          padding: "0px 15px",
           cursor: "pointer",
         }}
         className="navbar text-black bg-white backdrop-blur-md fixed w-full max-w-sm   border-bottom border-body"
