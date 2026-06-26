@@ -32,7 +32,7 @@ async function userregister(req, res) {
     const token = jwt.sign({ id: user._id }, process.env.JWTSECRET);
 res.cookie("userlogintoken", token, {
   httpOnly: true,
-  secure: true,       
+  Secure: true,       
   sameSite: "none",   
   path: "/",
   maxAge:36000000
