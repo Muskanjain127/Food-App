@@ -13,7 +13,7 @@ export function Homepage() {
   useEffect(() => {
     const fooditems = async () => {
       try {
-        const res = await axios.get(
+        const res = await axios.get(`https://food-webapp-6n6a.onrender.com/fooditem/user/showfooditem`||
           "http://localhost:5000/fooditem/user/showfooditem",
           { withCredentials: true }
         );
