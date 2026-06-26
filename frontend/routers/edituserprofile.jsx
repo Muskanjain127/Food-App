@@ -9,7 +9,6 @@ export function Edituserprofile() {
   const usernameref = useRef();
   const profilepicref = useRef();
   const location = useLocation();
-  console.log(location.state?.user);
   const olddata = location.state?.user;
 
   const navigate = useNavigate();
