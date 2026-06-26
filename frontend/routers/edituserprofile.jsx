@@ -43,7 +43,7 @@ export function Edituserprofile() {
       {
         headers: { "Content-Type": "multipart/form-data" },
         withCredentials: true,
-      },
+      }
     );
     setIsSubmitting(false);
 
