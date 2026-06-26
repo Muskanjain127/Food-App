@@ -29,7 +29,7 @@ export function Foodpartneregister() {
       formdata.append("profilepic", profilepicref.current.files[0]);
       formdata.append("username", usernameref.current.value);
 
-      const foodpartner = await axios.post(
+      const foodpartner = await axios.post(`https://food-webapp-6n6a.onrender.com/foodpartner/register`||
         "http://localhost:5000/foodpartner/register",
         formdata,
         {
