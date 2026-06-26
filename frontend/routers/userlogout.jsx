@@ -7,7 +7,7 @@ export function Userlogout() {
   useEffect(() => {
     const performlogout = async () => {
       try {
-        await axios.get("http://localhost:5000/user/logout", {
+        await axios.get(`https://food-webapp-6n6a.onrender.com/user/logout`||"http://localhost:5000/user/logout", {
           withCredentials: true,
         });
             console.log("after removal:", localStorage.getItem("userRole")); 
