@@ -36,7 +36,7 @@ export function Navbar() {
       <nav
         style={{
           position: "fixed",
-          bottom: 0,
+          bottom: 2,
           zIndex: 100,
           height: "5%",
           padding: "1px 8px",
