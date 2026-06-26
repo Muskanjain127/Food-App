@@ -37,15 +37,13 @@ export function Edituserprofile() {
       formdata.append("profilepic", profilepicref.current.files[0]);
     }
     const id = olddata._id;
-    await axios.post( `https://food-webapp-6n6a.onrender.com/user/edit/profile/${id}`||
-      `http://localhost:5000/user/edit/profile/${id}`,
-      formdata,
-      {
-        headers: { "Content-Type": "multipart/form-data" },
-        withCredentials: true,
-      };
-    );
-    setIsSubmitting(false);
+await axios.post(`https://food-webapp-6n6a.onrender.com/user/edit/profile/${id}`, 
+        formdata, 
+        {
+          headers: { "Content-Type": "multipart/form-data" },
+          withCredentials: true,
+        }
+      );    setIsSubmitting(false);
 
     nameref.current.value = "";
     usernameref.current.value = "";
