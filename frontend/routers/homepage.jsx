@@ -121,7 +121,7 @@ export function Homepage() {
                     </div>
                   </Link>
                 </div>
-                <div className="flex gap-3 mb-0">
+                <div className="flex gap-3 mb-1">
                   <Link to={`/foodpartner/${video?.foodpartner?._id}`}>
                     <button className="flex-1 border bg-blue-500 text-white hover:bg-red-50 py-1 px-4 !rounded-2xl font-medium transition-all active:scale-95 shadow-md ml-1 mt-1">
                       See Profile
