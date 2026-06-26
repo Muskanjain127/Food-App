@@ -32,7 +32,7 @@ export function Updateitem() {
       formdata.append("video", video);
     }
 
-    const update = await axios.post(
+    const update = await axios.post(`https://food-webapp-6n6a.onrender.com/fooditem/update/${foodid}`||
       `http://localhost:5000/fooditem/update/${foodid}`,
 
       formdata,
