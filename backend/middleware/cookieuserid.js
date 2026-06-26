@@ -8,7 +8,7 @@ async function cookieuserid(req, res) {
 
     const realuser = await usermodel.findById(decoded.id);
     req.user = realuser;
-    console.log("user verified", realuser);
+    console.log("user verified in cookieiddleware", realuser);
     res.send(realuser);
   } catch (err) {
     console.log("not verified user ", err);
