@@ -35,6 +35,7 @@ res.cookie("userlogintoken", token, {
   secure: true,       
   sameSite: "none",   
   path: "/",
+  maxAge:36000000
 });
     return res.status(201).json({
       message: "Registered successfully",
