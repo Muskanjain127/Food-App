@@ -57,7 +57,7 @@ export function Partnernavbar() {
 
   return (
     
-    <nav className="fixed bottom-0 left-0 right-0 mx-auto w-full max-w-sm h-6 bg-white backdrop-blur-md border-t border-zinc-200 flex items-center justify-between px-6 z-[100] shadow-[0_-5px_20px_rgba(0,0,0,0.1)] ">
+    <nav className="fixed bottom-0 left-0 right-0 mx-auto sm:h-5vh w-full max-w-sm h-6 bg-white backdrop-blur-md border-t border-zinc-200 flex items-center justify-between px-6 z-[100] shadow-[0_-5px_20px_rgba(0,0,0,0.1)] ">
       
       <div className="text-xl cursor-pointer">
         {location.pathname === "/foodpartner/home" ? (
