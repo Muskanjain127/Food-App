@@ -43,7 +43,7 @@ export function Partnerhome() {
 
         setpartnerdata(partnerid.data);
         console.log("before fetchitem");
-        const fetchitem = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner//${partnerid.data._id}`||
+        const fetchitem = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner/${partnerid.data._id}`||
           `http://localhost:5000/foodpartner/${partnerid.data._id}`,
           {
             withCredentials: true,
