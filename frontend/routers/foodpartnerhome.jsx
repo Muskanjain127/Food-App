@@ -17,7 +17,7 @@ export function Partnerhome() {
     );
     if (confirm) {
       try {
-        await axios.delete(
+        await axios.delete(`https://food-webapp-6n6a.onrender.com/fooditem/delete/${partnerid}/${foodid}`||
           `http://localhost:5000/fooditem/delete/${partnerid}/${foodid}`,
           { withCredentials: true },
         );
@@ -34,7 +34,7 @@ export function Partnerhome() {
   useEffect(() => {
     const fetchpartnerid = async () => {
       try {
-        const partnerid = await axios.get(
+        const partnerid = await axios.get( `https://food-webapp-6n6a.onrender.com/foodpartner/find`||
           `http://localhost:5000/foodpartner/find`,
           {
             withCredentials: true,
@@ -43,7 +43,7 @@ export function Partnerhome() {
 
         setpartnerdata(partnerid.data);
         console.log("before fetchitem");
-        const fetchitem = await axios.get(
+        const fetchitem = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner//${partnerid.data._id}`||
           `http://localhost:5000/foodpartner/${partnerid.data._id}`,
           {
             withCredentials: true,
