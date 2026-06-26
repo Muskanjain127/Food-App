@@ -11,7 +11,7 @@ export function Searching() {
 
   const search = async (value) => {
     try {
-      const res = await axios.post(
+      const res = await axios.post(`https://food-webapp-6n6a.onrender.com/user/searching`||
         "http://localhost:5000/user/searching",
         { searchingvalue: value },
         { withCredentials: true }
