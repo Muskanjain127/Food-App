@@ -13,7 +13,7 @@ export function Partnerprofile() {
   useEffect(() => {
     const fetchvideos = async () => {
       try {
-        const res = await axios.get(`http://localhost:5000/foodpartner/${id}`, {
+        const res = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner/${id}`||`http://localhost:5000/foodpartner/${id}`, {
           withCredentials: true,
         });
         setdata(res.data);
