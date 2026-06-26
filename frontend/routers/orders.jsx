@@ -26,7 +26,7 @@ export function Orders() {
   useEffect(() => {
     const fetchorders = async () => {
       try {
-        const foodpartner = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartnert/find`||
+        const foodpartner = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner/find`||
           "http://localhost:5000/foodpartner/find",
           {
             withCredentials: true,
