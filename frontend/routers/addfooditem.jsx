@@ -33,7 +33,6 @@ export function Addfooditem() {
         withCredentials: true,
       },
     );
-    console.log("foodsent");
     setLoading(false);
     nameref.current.value = "";
     descriptionref.current.value = "";
