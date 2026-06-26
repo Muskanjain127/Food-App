@@ -19,7 +19,7 @@ async function usermiddleware(req, res, next) {
 
     const realuser = await user.findById(coorcookie.id);
     req.user = realuser;
-    console.log("user verified", realuser);
+    console.log("user verified in user middleware", realuser);
 
     next();
   } catch (err) {
