@@ -25,8 +25,12 @@ async function foodpartnerregister(req, res) {
   });
 
   const token = jwt.sign({ id: foodpartner._id }, process.env.JWTSECRET);
-  res.cookie("foodpartnerlogintoken", token);
-  res.status(200).json({
+res.cookie("foodpartnerlogintoken", token, {
+  httpOnly: true,
+  secure: true,
+  sameSite: "none",
+  path: "/",
+});  res.status(200).json({
     message: "foodpartner registered successfully",
     foodpartner: {
       name,
