@@ -6,7 +6,7 @@ async function usermiddleware(req, res, next) {
   console.log("heyyyyyyyyy");
   const logintoken = req.cookies.userlogintoken;
   if (!logintoken) {
-    res.send("pleaase login first");
+   return res.send("pleaase login first");
   }
   try {
     console.log("v in user verified");
