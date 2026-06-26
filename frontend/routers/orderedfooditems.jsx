@@ -25,7 +25,7 @@ export function Orderedfoodlist() {
     const fetchorderedfood = async () => {
       try {
         
-        const userr = await axios.get(`https://food-webapp-6n6a.onrender.com/user/find`||"http://localhost:5000/user/find", {
+        const user = await axios.get(`https://food-webapp-6n6a.onrender.com/user/find`||"http://localhost:5000/user/find", {
           withCredentials: true,
         });
         const res = await axios.get(`https://food-webapp-6n6a.onrender.com/fooditem/orderedfood/${user.data._id}`,`http://localhost:5000/fooditem/orderedfood/${user.data._id}`, {
