@@ -13,7 +13,7 @@ export function Partnerselfprofile() {
     const confirm = window.confirm("Are you sure you want to logout?");
     if (confirm) {
       try {
-        await axios.get("http://localhost:5000/foodpartner/logout", {
+        await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner/logout`||"http://localhost:5000/foodpartner/logout", {
           withCredentials: true,
         });
         localStorage.removeItem("partnerRole"); 
@@ -27,7 +27,7 @@ export function Partnerselfprofile() {
   useEffect(() => {
     const fetchfoodpartner = async () => {
       try {
-        const partnerr = await axios.get(`http://localhost:5000/foodpartner/find`, {
+        const partnerr = await axios.get(`https://food-webapp-6n6a.onrender.com/foodpartner/find`||`http://localhost:5000/foodpartner/find`, {
           withCredentials: true,
         });
         setfoodpartner(partnerr.data);
