@@ -12,9 +12,9 @@ export function Itemorderpage() {
   const orderconfirm = async (foodid) => {
     setLoading(true); 
     try {
-      const user = await axios.get("http://localhost:5000/user/find", { withCredentials: true });
+      const user = await axios.get(`https://food-webapp-6n6a.onrender.com/user/find`||"http://localhost:5000/user/find", { withCredentials: true });
       
-      await axios.post(
+      await axios.post(`https://food-webapp-6n6a.onrender.com/fooditem/ordered//${foodid}`||
         `http://localhost:5000/fooditem/ordered/${foodid}`,
         { user: user.data._id },
         { withCredentials: true }
@@ -32,7 +32,7 @@ export function Itemorderpage() {
   useEffect(() => {
     const fetchdata = async () => {
       try {
-        const item = await axios.get(`http://localhost:5000/fooditem/order/${foodid}`, { withCredentials: true });
+        const item = await axios.get( `https://food-webapp-6n6a.onrender.com/fooditem/order/${foodid}`||`http://localhost:5000/fooditem/order/${foodid}`, { withCredentials: true });
         setfooditem(item.data);
       } catch (err) {
         console.log("failed to load item", err);
