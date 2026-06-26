@@ -25,7 +25,7 @@ export function Addfooditem() {
     formdata.append("description", description);
     formdata.append("video", video);
 
-    const fooditem = await axios.post(`https://food-webapp-6n6a.onrender.com/fooditem/foodpartner/createfood`||
+    const fooditem = await axios.post(`https://food-webapp-6n6a.onrender.com/fooditem/foodpartner/cretaefood`||
       "http://localhost:5000/fooditem/foodpartner/cretaefood",
       formdata,
       {
