@@ -27,7 +27,6 @@ export function Partnerprofile() {
   const partner = data[0]?.foodpartner;
 
   return (
-    // Outer wrapper for centering on desktop
     <div className="flex justify-center min-h-screen bg-black">
       <div className="w-full max-w-sm min-h-screen bg-black text-white border-x border-gray-800">
         {partner && (
@@ -44,7 +43,6 @@ export function Partnerprofile() {
             </div>
           </div>
         )}
-        {/* Grid for posts */}
         <div className="grid grid-cols-3 gap-1 ">
           {data.map((item) => (
             <div
@@ -59,7 +57,6 @@ export function Partnerprofile() {
             </div>
           ))}
         </div>
-        {/* Fullscreen Video Modal */}
         {selectedvideo && (
           <div
             className="fixed inset-0 bg-black bg-opacity-95 flex items-center justify-center z-50 p-4"
