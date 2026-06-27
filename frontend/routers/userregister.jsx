@@ -41,7 +41,6 @@ export function Useregister() {
                 const role=response.data.userinfo.role;
     localStorage.setItem("userRole",role);
 
-      // Inputs clear karna
       nameref.current.value = "";
       usernameref.current.value = "";
       emailref.current.value = "";
@@ -64,7 +63,6 @@ export function Useregister() {
       <div className="min-h-screen flex items-center justify-center bg-gradient-to-br from-purple-200 via-red-200 to-blue-200 p-3 font-sans">
         <div className="bg-[#1e293b] p-4 rounded-3xl shadow-2xl w-full max-w-lg border bg-gradient-to-br from-purple-200 via-red-200 to-blue-200">
           
-          {/* Message Display (Error: Red, Success: Green) */}
           {message.text && (
             <div className={`mb-4 p-3 rounded-xl text-center font-bold text-sm border ${message.type === "success" ? "bg-green-500/20 text-green-500 border-green-500" : "bg-red-500/20 text-red-500 border-red-500"}`}>
               {message.text}
