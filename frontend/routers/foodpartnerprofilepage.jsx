@@ -74,7 +74,7 @@ export function Partnerprofile() {
             />
           </div>
         )}
-        <div className="h-16"></div> {/* Space for Navbar */}
+        <div className="h-16"></div> 
         <Navbar />
       </div>
     </div>
